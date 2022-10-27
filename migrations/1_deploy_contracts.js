@@ -1,4 +1,4 @@
-const Proof = artifacts.require("Payer");
+const PayByLocation = artifacts.require("PayByLocation");
 module.exports = function(deployer) {
-  deployer.deploy(Proof);
+  deployer.deploy(PayByLocation);
 };
