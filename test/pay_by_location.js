@@ -1,4 +1,4 @@
-const payTest = artifacts.require("payTest");
+const payByLocation = artifacts.require("PayByLocation");
 
 /*
  * uncomment accounts to access the test accounts made available by the
@@ -7,7 +7,7 @@ const payTest = artifacts.require("payTest");
  */
 contract("payTest", function (/* accounts */) {
   it("should assert true", async function () {
-    await payTest.deployed();
+    await payByLocation.deployed();
     return assert.isTrue(true);
   });
 });
