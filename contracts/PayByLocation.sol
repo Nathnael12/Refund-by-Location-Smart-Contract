@@ -18,7 +18,7 @@ contract PayByLocation {
         uint256 _allowedDistance,
         uint256 _lat,
         uint256 _lng
-    ) private {
+    ) public {
         Employee memory employee = Employee(
             _name,
             _allowedDistance,
