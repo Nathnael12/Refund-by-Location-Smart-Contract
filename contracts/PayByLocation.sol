@@ -6,8 +6,8 @@ contract PayByLocation {
     struct Employee {
         string name;
         uint256 distance;
-        uint256 lat;
-        uint256 lng;
+        int256 lat;
+        int256 lng;
         bool comply;
     }
     mapping(address => Employee) employees;
@@ -16,8 +16,8 @@ contract PayByLocation {
         address _employeeAddress,
         string memory _name,
         uint256 _allowedDistance,
-        uint256 _lat,
-        uint256 _lng
+        int256 _lat,
+        int256 _lng
     ) public {
         Employee memory employee = Employee(
             _name,
@@ -37,43 +37,52 @@ contract PayByLocation {
         return (employees[empAddress]);
     }
 
-    function evaluate(uint256 _lat, uint256 _lng) public view  {
+    function evaluate(int256 _lat, int256 _lng) public   {
         //refrence distance is lat and lng from the constructors
         address empAddr = msg.sender;
         Employee memory employee = getEmployee((empAddr));
         employee.comply = isComplied(_lat, _lng, employee);
+        employees[empAddr] = employee;
 
     }
 
     function getDistance(
-        uint256 _lat,
-        uint256 _lng,
-        uint256 _lat1,
-        uint256 _lng1
-    ) private pure returns (uint256) {
-        return sqrt(((_lat - _lat1)**2) + ((_lng - _lng1)**2));
+        int256 _lat,
+        int256 _lng,
+        int256 _lat1,
+        int256 _lng1
+    ) private pure returns (int256 ) {
+        int256 dist = sqrt(((_lat - _lat1)**2) + ((_lng - _lng1)**2));
+        return dist;
+        // return 6;
     }
 
-    function sqrt(uint256 x) private pure returns (uint256 y) {
-        uint256 z = (x + 1) / 2;
+    function sqrt(int256 x) private pure returns (int256 y) {
+        int256 z = (x + 1) / 2;
         y = x;
-        while (z < y) {
+        while (z <(y)) {
             y = z;
             z = (x / z + z) / 2;
         }
+        return y;
     }
 
     function isComplied(
-        uint256 _lat,
-        uint256 _lng,
+        int256 _lat,
+        int256 _lng,
         Employee memory _employee
-    ) public pure returns (bool) {
-        uint256 distance = getDistance(
+    ) private pure returns (bool) {
+        int256 distance = getDistance(
             _lat,
             _lng,
             _employee.lat,
             _employee.lng
         );
-        return distance <= _employee.distance;
+        return distance <= int(_employee.distance);
     }
+
+    function getSender() public view returns (address) {
+        return msg.sender;
+    }
+    
 }
