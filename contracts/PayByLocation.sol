@@ -2,8 +2,8 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract PayByLocation {
-
-    struct Employee {
+ 
+        struct Employee {
         string name;
         uint256 distance;
         int256 lat;
@@ -11,7 +11,7 @@ contract PayByLocation {
         bool comply;
     }
     
-    mapping(address => Employee) employees;
+    mapping(address => Employee) private employees;
 
     function addEmployee(
         address _employeeAddress,
@@ -19,7 +19,7 @@ contract PayByLocation {
         uint256 _allowedDistance,
         int256 _lat,
         int256 _lng
-    ) public {
+    ) public  {
         Employee memory employee = Employee(
             _name,
             _allowedDistance,
@@ -28,6 +28,7 @@ contract PayByLocation {
             true
         );
         employees[_employeeAddress] = employee;
+
     }
 
     function getEmployee(address empAddress)
