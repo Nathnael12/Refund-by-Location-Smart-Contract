@@ -10,6 +10,7 @@ contract PayByLocation {
         int256 lng;
         bool comply;
     }
+    
     mapping(address => Employee) employees;
 
     function addEmployee(
