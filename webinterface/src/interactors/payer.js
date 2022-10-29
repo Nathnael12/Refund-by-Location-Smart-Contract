@@ -1,6 +1,6 @@
 import web3 from './web3';
 
-const address = "0x0fe9269e3dA70b3f61312dFF9Ae1E3fe912E103C";
+const address = "0xc244784a1a92016a3f474210beecabb7cea4b622";
 const data = require("./PayByLocation.json")
 const abi =  data.abi;
 
