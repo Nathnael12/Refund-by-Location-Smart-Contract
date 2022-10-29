@@ -70,10 +70,12 @@ contract PayByLocation {
         address empAddr = msg.sender;
         Employee memory employee = employees[empAddr];
         bool comply = isComplied(_lat, _lng, employee);
-
+        employee.comply = comply; 
+        
         if (comply && (timeteller() >= employee.contractEnd && !employee.paid)) {
         
             //pay the user
+            employee.paid = true;
         
         } else if (!comply && (timeteller() < employee.contractEnd)) {
         
@@ -81,7 +83,6 @@ contract PayByLocation {
 
         }
 
-        employee.comply = comply; 
         employees[empAddr] = employee;
 
     }
