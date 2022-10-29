@@ -6,6 +6,8 @@ contract PayByLocation {
         struct Employee {
         string name;
         uint256 distance;
+        uint256 registeredAt;
+        uint256 contractEnd;
         int256 lat;
         int256 lng;
         bool comply;
@@ -19,12 +21,16 @@ contract PayByLocation {
         address _employeeAddress,
         string memory _name,
         uint256 _allowedDistance,
+        uint256 _contractEnd,
         int256 _lat,
         int256 _lng
     ) public  {
+        uint256 time = timeteller();
         Employee memory employee = Employee(
             _name,
             _allowedDistance,
+            time,
+            _contractEnd,
             _lat,
             _lng,
             true
@@ -104,5 +110,9 @@ contract PayByLocation {
     function getSender() public view returns (address) {
         return msg.sender;
     }
+
+    function timeteller() private view returns(uint){
+     return block.timestamp;
+ }
     
 }
