@@ -5,18 +5,23 @@ import contract from '../interactors/payer';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import "./details.css"
+// import Location from '../interactors/Location';
 const Details = () => {
   const { id } = useParams();
 
   const [employee, setemployee] = useState({})
+  const [registeredAt, setRegisteredAt] = useState()
+  const [endAt, setEndAt] = useState()
 
   useEffect(() => {
     const init = async () => {
       const emp = await contract.methods.getEmployee(id).call()
-      emp.createdAt = getTime(emp.createdAt)
+      setRegisteredAt(getTime(emp.registeredAt))
+      setEndAt(getTime(emp.contractEnd))
       setemployee({ ...emp })
     }
     init()
+    // Location(emp.lat,emp.lng)
 
   }, [])
 
@@ -37,13 +42,14 @@ const Details = () => {
           <div className="location"> Centre Location: ({employee.lat},{employee.lng})</div>
           <div className="distance">Allowed Distance: {employee.distance} km</div>
           <div className="comply">Complied to Contract: {employee.comply ? "Yes" : "No"}</div>
-          <div className="comply">Registered At: {employee.registeredAt}</div>
+          <div className="contract-start">Registered On: {registeredAt}</div>
+          <div className="contract-end">Contract will End On: {endAt}</div>
 
         </div>
         <div className="map">
           <div class="mapouter">
             <div class="gmap_canvas">
-              <iframe width="600" height="500" id="gmap_canvas" src={`https://maps.google.com/maps?q=${employee.lat},${employee.lng}&output=embed`} frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+              <iframe width="600" height="500" id="gmap_canvas" src={`https://maps.google.com/maps?q=${employee.lat},${employee.lng}&output=embed`} frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0">
               </iframe>
             </div>
           </div>

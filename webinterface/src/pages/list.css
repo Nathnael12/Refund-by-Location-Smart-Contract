@@ -103,3 +103,15 @@ ol.gradient-list > li:nth-child(10n+10):before {
 ol.gradient-list > li + li {
   margin-top: 2rem;
 }
+
+.head{
+  display: flex;
+  justify-content: space-between;
+}
+.button{
+  text-decoration: none;
+  background-color: #68763b;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 8px ;
+}

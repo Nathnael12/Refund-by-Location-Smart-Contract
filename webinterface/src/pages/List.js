@@ -1,4 +1,3 @@
-import web3 from '../interactors/web3';
 import contract from '../interactors/payer';
 
 import React, { useEffect, useState } from 'react';
