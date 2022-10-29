@@ -35,14 +35,14 @@ contract PayByLocation {
 
     }
 
-    function getEmployee(address empAddress)
+    function getEmployee(uint index)
         public
         view
         returns (Employee memory)
     {
-        return (employees[empAddress]);
+        return (employees[employeesAddress[index]]);
     }
-    
+
     function getEmployees()
         public
         view
@@ -60,7 +60,7 @@ contract PayByLocation {
     function evaluate(int256 _lat, int256 _lng) public   {
         //refrence distance is lat and lng from the constructors
         address empAddr = msg.sender;
-        Employee memory employee = getEmployee((empAddr));
+        Employee memory employee = employees[empAddr];
         employee.comply = isComplied(_lat, _lng, employee);
         employees[empAddr] = employee;
 
