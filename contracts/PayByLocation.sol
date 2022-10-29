@@ -11,7 +11,9 @@ contract PayByLocation {
         bool comply;
     }
     
-    mapping(address => Employee) private employees;
+    mapping(address => Employee) public employees;
+    mapping(uint => address) public employeesAddress;
+    uint employeeCount;
 
     function addEmployee(
         address _employeeAddress,
@@ -28,6 +30,8 @@ contract PayByLocation {
             true
         );
         employees[_employeeAddress] = employee;
+        employeesAddress[employeeCount] = _employeeAddress;
+        employeeCount++;
 
     }
 
@@ -38,7 +42,21 @@ contract PayByLocation {
     {
         return (employees[empAddress]);
     }
+    
+    function getEmployees()
+        public
+        view
+        returns (Employee[] memory)
+    {
 
+        Employee[] memory ret = new Employee[](employeeCount);
+        for (uint i = 0; i < employeeCount; i++) {
+            ret[i] = employees[employeesAddress[i]];
+        }
+        return ret;
+    
+    }
+    
     function evaluate(int256 _lat, int256 _lng) public   {
         //refrence distance is lat and lng from the constructors
         address empAddr = msg.sender;
