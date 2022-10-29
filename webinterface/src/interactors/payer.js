@@ -1,7 +1,8 @@
 import web3 from './web3';
 
-const address = "0x9179a4cc0791b5cbe47417a1196f1b2e041dd0e6";
+const address = "0x26de42dcde1a8ba661366ebace9fe13bef2c6d0a";
 const data = require("./PayByLocation.json")
+// const data = require("D:\\Projects\\Personal\\python\\10 Academy\\Week 10\\build\\contracts\\PayByLocation.json")
 const abi =  data.abi;
 
 // @ts-ignore
