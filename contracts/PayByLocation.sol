@@ -11,6 +11,7 @@ contract PayByLocation {
         int256 lat;
         int256 lng;
         bool comply;
+        bool paid;
     }
     
     mapping(address => Employee) public employees;
@@ -33,7 +34,8 @@ contract PayByLocation {
             _contractEnd,
             _lat,
             _lng,
-            true
+            true,
+            false
         );
         employees[_employeeAddress] = employee;
         employeesAddress[employeeCount] = _employeeAddress;
@@ -67,7 +69,19 @@ contract PayByLocation {
         //refrence distance is lat and lng from the constructors
         address empAddr = msg.sender;
         Employee memory employee = employees[empAddr];
-        employee.comply = isComplied(_lat, _lng, employee);
+        bool comply = isComplied(_lat, _lng, employee);
+
+        if (comply && (timeteller() >= employee.contractEnd && !employee.paid)) {
+        
+            //pay the user
+        
+        } else if (!comply && (timeteller() < employee.contractEnd)) {
+        
+            // refund employer
+
+        }
+
+        employee.comply = comply; 
         employees[empAddr] = employee;
 
     }
